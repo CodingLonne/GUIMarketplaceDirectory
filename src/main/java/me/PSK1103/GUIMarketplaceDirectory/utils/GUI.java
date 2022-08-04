@@ -47,9 +47,9 @@ public class GUI {
     public void openShopDirectory(Player player) {
         List<Map<String,String>> shops = plugin.getShopRepo().getShopDetails();
         Inventory shopDirectory = Bukkit.createInventory(new MarketplaceBookHolder(shops), Math.min(9*(shops.size()/9 + (shops.size()%9 == 0 ? 0 : 1)),54) + (shops.size() == 0 ? 9 : 0), Component.text("Marketplace Directory"));
-        for(int i=0;i<(shops.size() > 54 ? 45 : shops.size());i++) {
+        for(int i=0;i<(shops.size() > 54 ? 45 : shops.size());i++) { //does only 45 if shopsize is bigger than 54
             ItemStack shopItem;
-            try {
+            try { //sets display item
                 shopItem = new ItemStack(Material.getMaterial(shops.get(i).get("displayItem")));
             }
             catch (Exception e) {
@@ -181,7 +181,6 @@ public class GUI {
         Inventory prevPageInv = player.getOpenInventory().getTopInventory();
         ShopInvHolder holder = (ShopInvHolder) prevPageInv.getHolder();
         List<ItemStack> inv = holder.getInv();
-        int type = holder.getType();
         prevPageInv.clear();
         for(int i=0;i<Math.min(inv.size(),(currPage+1)*45)-currPage*45;i++) {
             prevPageInv.setItem(i,inv.get(i));
